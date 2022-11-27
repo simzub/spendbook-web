@@ -6,14 +6,14 @@ export default function Login() {
         <div className=" w-full max-w-md  space-y-8 rounded-lg px-8 pt-16 pb-8 shadow-xl">
           <div className="flex flex-col items-center justify-center">
             <Svg />
-            <p className="mt-8 text-center text-gray-600 text-base font-inter">Enter you account details to continue</p>
+            <p className="mt-8 text-center text-base text-gray-600 font-inter">Enter you account details to continue</p>
           </div>
           <form className="mt-8 space-y-6" action="#" method="POST">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
                 <label htmlFor="email-address" className="sr-only">
-                  Email address
+                  Email
                 </label>
                 <input
                   id="email-address"
