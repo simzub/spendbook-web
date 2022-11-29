@@ -1,8 +1,8 @@
 import { ReactComponent as LogoWithText } from '../spendbook-logo-with-text.svg';
 
-const Header = () => {
+export default function Header() {
   return (
-    <header className="absolute left-0 top-0 flex h-header w-full flex-col items-center justify-center ">
+    <header className="left-0 top-0 flex h-header w-full flex-col items-center justify-center ">
       <div className="flex w-main flex-row items-center gap-4 py-6 px-0 ">
         <LogoWithText className="w-156px h-32px flex flex-row items-center justify-center gap-2 p-0 " />
         <div className="h-40px w-477px "></div>
@@ -12,6 +12,4 @@ const Header = () => {
       </div>
     </header>
   );
-};
-
-export default Header;
+}

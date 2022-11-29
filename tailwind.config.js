@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#015604',
-        secondary: '#627D98',
+        secondary: '#818181',
       },
       height: {
         header: '88px',
@@ -15,6 +15,7 @@ module.exports = {
         main: '768px',
         '103px': '103px',
         '477px': '477px',
+        '372px': '372px',
       },
     },
   },
