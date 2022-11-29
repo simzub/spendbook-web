@@ -61,7 +61,7 @@ export default function Login() {
             <div>
               <button
                 type="submit"
-                className=" font-si group  relative flex w-full justify-center rounded-md border border-primary bg-primary bg-opacity-20 py-2 px-4 font-bold  text-primary text-base"
+                className=" font-si group  relative flex w-full justify-center rounded-lg border border-primary bg-primary bg-opacity-20 py-2 px-4 font-bold  text-primary text-base"
               >
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3"></span>
                 SIGN IN
