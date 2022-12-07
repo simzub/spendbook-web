@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../../app/store';
+import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "../../app/store";
 
 export interface PayerItem {
   id: number;
@@ -12,13 +12,13 @@ interface PayerState {
 
 const initialState: PayerState = {
   payers: [
-    { id: 1, name: 'Lukas' },
-    { id: 2, name: 'Simonas' },
+    { id: 1, name: "Lukas" },
+    { id: 2, name: "Simonas" },
   ],
 };
 
 const payerListSlice = createSlice({
-  name: 'payerList',
+  name: "payerList",
   initialState,
   reducers: {},
 });

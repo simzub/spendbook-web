@@ -1,23 +1,23 @@
-import Login from './components/Login';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import RequireAuth from './components/RequireAuth';
-import InnerSwitch from './components/InnerSwitch';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
+import Login from "./components/Login";
+import RequireAuth from "./components/RequireAuth";
+import InnerSwitch from "./components/InnerSwitch";
+import { store } from "./app/store";
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: "/login",
     element: (
-      <RequireAuth type={'public'}>
+      <RequireAuth type={"public"}>
         <Login />
       </RequireAuth>
     ),
   },
   {
-    path: '*',
+    path: "*",
     element: (
-      <RequireAuth type={'private'}>
+      <RequireAuth type={"private"}>
         <InnerSwitch />
       </RequireAuth>
     ),

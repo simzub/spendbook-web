@@ -2,11 +2,18 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "entry": "src/index.tsx",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:fix:prettier": "prettier --write src/.",
+    "lint:fix:eslint": "eslint src/. --fix",
+    "lint:fix": "npm run lint:fix:prettier && npm run lint:fix:eslint",
+    "lint:check:prettier": "prettier --check src/.",
+    "lint:check:eslint": "eslint src/.",
+    "lint:check": "npm run lint:check:prettier && npm run lint:check:eslint"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
@@ -35,15 +42,28 @@
     "@tailwindcss/forms": "^0.5.2",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@tailwindcss/typography": "^0.5.4",
+    "husky": "^8.0.2",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.14",
     "postcss-import": "^14.1.0",
     "postcss-loader": "^7.0.1",
     "postcss-preset-env": "^7.7.2",
-    "prettier": "^2.8.0",
-    "prettier-plugin-tailwindcss": "^0.1.13",
     "tailwindcss": "^3.2.4",
-    "tailwindcss-font-inter": "^3.0.1"
+    "tailwindcss-font-inter": "^3.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.20.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.3.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-webpack-plugin": "^3.2.0",
+    "prettier": "^2.8.0",
+    "prettier-plugin-tailwindcss": "^0.1.13"
   },
   "eslintConfig": {
     "extends": [
