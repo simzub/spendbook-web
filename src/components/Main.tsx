@@ -1,34 +1,34 @@
 import ContentCard from './ContentCard';
 import ColoredSpan from './ColoredSpan';
 import TransactionsTable from './TransactionsTable';
-
-const formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'EUR',
-});
+import PageHeader from './PageHeader';
+import SectionHeader from './SectionHeader';
+import euroFormatter from '../utils/euroFormatter';
+import { useAppSelector } from '../app/hook';
+import { selectTransactions } from '../features/transactions/transactionListSlice';
 
 export default function Main() {
+  const data = useAppSelector(selectTransactions);
   return (
-    <main className="sm:max-w-main flex w-full justify-center">
-      <div className="flex flex-col items-center justify-center">
-        <div className=" flex w-full flex-col items-center justify-center gap-8 py-6 px-0 ">
-          <h1 className="flex w-full items-stretch font-bold text-3xl ">Hello, User Name!</h1>
-          <div className="flex w-full flex-col items-start gap-4 p-0">
-            <h2 className="flex w-full items-stretch font-bold text-2xl ">Overview</h2>
-            <div className="flex w-full flex-row items-start gap-6 p-0">
-              <ContentCard description="Total transactions" content={123} />
-              <ContentCard
-                description="Your balance"
-                content={<ColoredSpan color="success">{formatter.format(360.12)}</ColoredSpan>}
-              />
-              <ContentCard description="Your balance">
-                <ColoredSpan color="error">{formatter.format(360.12)}</ColoredSpan>
-              </ContentCard>
+    <>
+      <PageHeader title={'Hello, User Name!'} />
+      <div className="flex w-full justify-center ">
+        <div className="flex w-full flex-col items-center justify-center md:w-[48rem]">
+          <div className=" flex w-full flex-col items-center justify-center gap-8 px-0 pb-8 pt-6 ">
+            <div className="flex w-full flex-col items-start gap-4 p-0">
+              <SectionHeader title={'Overview'} />
+              <div className="flex w-full flex-col items-start gap-6 p-0 md:flex-row">
+                <ContentCard description="Total transactions" content={125} />
+                <ContentCard
+                  description="Your balance"
+                  content={<ColoredSpan color="success">{euroFormatter(360.59)}</ColoredSpan>}
+                />
+              </div>
             </div>
           </div>
+          <TransactionsTable data={data} />
         </div>
-        <TransactionsTable />
       </div>
-    </main>
+    </>
   );
 }
