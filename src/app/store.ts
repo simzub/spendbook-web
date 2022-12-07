@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import payerListReducer from '../features/payer/payerListSlice';
-import transactionListReducer from '../features/transactions/transactionListSlice';
+import payerListReducer from "../features/payer/payerListSlice";
+import transactionListReducer from "../features/transactions/transactionListSlice";
 
 export const store = configureStore({
   reducer: {

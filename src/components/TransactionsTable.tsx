@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { TransactionItem } from '../features/transactions/transactionListSlice';
-import euroFormatter from '../utils/euroFormatter';
+import { Link } from "react-router-dom";
+import { TransactionItem } from "../features/transactions/transactionListSlice";
+import euroFormatter from "../utils/euroFormatter";
 
 interface TransactionsTableProps {
   data: TransactionItem[];
@@ -28,16 +28,28 @@ export default function TransactionsTable(props: TransactionsTableProps) {
                 <table className="min-w-full">
                   <thead>
                     <tr>
-                      <th scope="col" className="py-3.5 pl-4 pr-3 text-left font-bold text-base md:pl-6 ">
+                      <th
+                        scope="col"
+                        className="py-3.5 pl-4 pr-3 text-left font-bold text-base md:pl-6 "
+                      >
                         Date
                       </th>
-                      <th scope="col" className="px-3 py-3.5 text-left font-bold text-base">
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left font-bold text-base"
+                      >
                         Location
                       </th>
-                      <th scope="col" className="px-3 py-3.5 text-left font-bold text-base">
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left font-bold text-base"
+                      >
                         Payer
                       </th>
-                      <th scope="col" className="px-3 py-3.5 text-left font-bold text-base">
+                      <th
+                        scope="col"
+                        className="px-3 py-3.5 text-left font-bold text-base"
+                      >
                         Amount
                       </th>
                     </tr>
@@ -45,10 +57,18 @@ export default function TransactionsTable(props: TransactionsTableProps) {
                   <tbody>
                     {props.data.map((data) => (
                       <tr key={Math.random()}>
-                        <td className="font-base whitespace-nowrap py-4 pl-4 pr-3 text-base md:pl-6 ">{data.date}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-base">{data.location}</td>
-                        <td className="whitespace-nowrap px-3 py-4 text-base">{data.payer}</td>
-                        <td className="whitespace-nowrap py-4 px-3 text-base">{euroFormatter(data.amount)}</td>
+                        <td className="font-base whitespace-nowrap py-4 pl-4 pr-3 text-base md:pl-6 ">
+                          {data.date}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-base">
+                          {data.location}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-base">
+                          {data.payer}
+                        </td>
+                        <td className="whitespace-nowrap py-4 px-3 text-base">
+                          {euroFormatter(data.amount)}
+                        </td>
                       </tr>
                     ))}
                   </tbody>

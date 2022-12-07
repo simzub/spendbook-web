@@ -1,29 +1,31 @@
-import { Navigate, RouteObject } from 'react-router-dom';
-import LogoutPage from './LogoutPage';
-import Main from './Main';
-import NewTransaction from './NewTransaction';
+import { Navigate, RouteObject } from "react-router-dom";
+import LogoutPage from "./LogoutPage";
+import Main from "./Main";
+import NewTransaction from "./NewTransaction";
 
-export const routes: RouteObject[] = [
+const routes: RouteObject[] = [
   {
-    path: '/logout',
+    path: "/logout",
     element: <LogoutPage />,
   },
   {
-    path: '/transactions',
+    path: "/transactions",
     children: [
       {
-        path: '',
+        path: "",
         element: <Main />,
         index: true,
       },
       {
-        path: 'new',
+        path: "new",
         element: <NewTransaction />,
       },
     ],
   },
   {
-    path: '*',
-    element: <Navigate to={'/transactions'} />,
+    path: "*",
+    element: <Navigate to={"/transactions"} />,
   },
 ];
+
+export default routes;

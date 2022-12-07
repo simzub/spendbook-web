@@ -1,8 +1,8 @@
-import { ArrowLeftIcon } from '@heroicons/react/24/outline';
-import { Link, useParams } from 'react-router-dom';
-import { useAppSelector } from '../app/hook';
-import { selectPayers } from '../features/payer/payerListSlice';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { ArrowLeftIcon } from "@heroicons/react/24/outline";
+import { Link, useParams } from "react-router-dom";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useAppSelector } from "../app/hook";
+import { selectPayers } from "../features/payer/payerListSlice";
 
 type Inputs = {
   date: string;
@@ -21,13 +21,14 @@ export default function NewTransaction() {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => console.log(data);
+  // eslint-disable-next-line no-console
+  const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => console.log(data);
 
   const toDay = new Date().toISOString().substring(0, 10);
 
-  let headerTitle = '';
+  let headerTitle = "";
   if (!transactionId) {
-    headerTitle = 'Add transaction';
+    headerTitle = "Add transaction";
   } else {
     headerTitle = `Edit transaction (id: ${transactionId})`;
   }
@@ -44,7 +45,10 @@ export default function NewTransaction() {
                 <Link to="..">
                   <ArrowLeftIcon className="h-8" />
                 </Link>
-                <h1 id="add-transactions" className="flex w-full items-stretch font-bold text-3xl ">
+                <h1
+                  id="add-transactions"
+                  className="flex w-full items-stretch font-bold text-3xl "
+                >
                   {headerTitle}
                 </h1>
               </div>
@@ -54,14 +58,14 @@ export default function NewTransaction() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register('date', { required: true })}
+                    {...register("date", { required: true })}
                     type="date"
                     id="date"
                     name="date"
                     defaultValue={toDay}
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
                   />
-                  {errors.date && 'Date is required'}
+                  {errors.date && "Date is required"}
                 </div>
               </div>
               <div className="mt-6">
@@ -70,7 +74,7 @@ export default function NewTransaction() {
                 </label>
                 <div className="mt-1">
                   <select
-                    {...register('payer', { required: true })}
+                    {...register("payer", { required: true })}
                     id="payer"
                     name="payer"
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
@@ -82,7 +86,7 @@ export default function NewTransaction() {
                       <option key={payer.id}>{payer.name}</option>
                     ))}
                   </select>
-                  {errors.payer && 'Payer is required'}
+                  {errors.payer && "Payer is required"}
                 </div>
               </div>
               <div className="mt-6">
@@ -91,7 +95,7 @@ export default function NewTransaction() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register('location', { required: true })}
+                    {...register("location", { required: true })}
                     placeholder="Location"
                     type="text"
                     id="location"
@@ -99,7 +103,7 @@ export default function NewTransaction() {
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
                   />
                   <div className="mt-1 font-normal text-red-600 text-sm">
-                    {errors.location && 'Location is required'}
+                    {errors.location && "Location is required"}
                   </div>
                 </div>
               </div>
@@ -109,7 +113,7 @@ export default function NewTransaction() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register('amount', { required: true })}
+                    {...register("amount", { required: true })}
                     placeholder="Amount"
                     type="number"
                     id="amount"
@@ -117,7 +121,9 @@ export default function NewTransaction() {
                     step=".01"
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
                   />
-                  <div className="mt-1 font-normal text-red-600 text-sm">{errors.amount && 'Amount is required'}</div>
+                  <div className="mt-1 font-normal text-red-600 text-sm">
+                    {errors.amount && "Amount is required"}
+                  </div>
                 </div>
               </div>
             </section>
@@ -130,7 +136,7 @@ export default function NewTransaction() {
                 Save
               </button>
               <Link
-                to={'..'}
+                to={".."}
                 className="relative flex w-full justify-center rounded-lg bg-secondary bg-opacity-20 py-2 px-4 font-bold text-base"
               >
                 Cancel

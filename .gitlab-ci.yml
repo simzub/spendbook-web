@@ -1,0 +1,65 @@
+image: node:latest
+
+# List of stages for jobs, and their order of execution
+stages:
+  - setup
+  - pre-checks
+  - deploy
+
+setup:
+  stage: setup
+  script:
+    - npm ci
+  artifacts:
+    expire_in: 1 days
+    when: on_success
+    paths:
+      - node_modules/
+
+# This job runs in the build stage, which runs first.
+build:
+  stage: pre-checks
+  dependencies:
+    - setup
+  script:
+    - npm run build
+
+eslint-check:
+  stage: pre-checks
+  dependencies:
+    - setup
+  script:
+    - npm run lint:check:eslint
+
+prettier-check:
+  stage: pre-checks
+  dependencies:
+    - setup
+  script:
+    - npm run lint:check:prettier
+
+# This job runs in the test stage.
+# It only starts when the job in the build stage completes successfully.
+# tests:
+#   stage: test
+#   script:
+#     - npm run test:ci
+#   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+#   dependencies:
+#     - build
+#   artifacts:
+#     when: always
+#     reports:
+#       junit:
+#         - junit.xml
+
+heroku-deploy:
+  stage: deploy
+  script:
+    - echo "Publishing $HEROKU_APP_NAME..."
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY --skip-cleanup
+  only:
+    - main

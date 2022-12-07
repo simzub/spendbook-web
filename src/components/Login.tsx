@@ -1,7 +1,7 @@
-import { ReactComponent as LogoWithText } from '../spendbook-logo-with-text.svg';
-import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ReactComponent as LogoWithText } from "../spendbook-logo-with-text.svg";
 
 export default function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -9,9 +9,8 @@ export default function Login() {
   const navigate = useNavigate();
 
   const onSubmit = () => {
-    console.log('setting shit');
-    localStorage.setItem('isAuthenticated', 'yes');
-    navigate('');
+    localStorage.setItem("isAuthenticated", "yes");
+    navigate("");
   };
 
   return (
@@ -20,7 +19,9 @@ export default function Login() {
         <div className=" w-full max-w-md space-y-8 rounded-lg border border-primary-900 bg-white px-8 pt-16 pb-8">
           <div className="flex flex-col items-center justify-center">
             <LogoWithText />
-            <p className="mt-8 text-center text-secondary text-base">Enter you account details to continue</p>
+            <p className="mt-8 text-center text-secondary text-base">
+              Enter you account details to continue
+            </p>
           </div>
           <form className="mt-8 space-y-6" onSubmit={onSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
@@ -47,7 +48,7 @@ export default function Login() {
                   <input
                     id="password"
                     name="password"
-                    type={passwordVisible ? 'text' : 'password'}
+                    type={passwordVisible ? "text" : "password"}
                     autoComplete="current-password"
                     required
                     className="w-full appearance-none rounded-lg border border-primary-900 px-3 py-2 text-gray-900 placeholder-secondary focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"

@@ -1,14 +1,19 @@
-import React, { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { ReactComponent as LogoWithText } from '../spendbook-logo-with-text.svg';
-import { UserCircleIcon } from '@heroicons/react/24/outline';
+import React, { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  XMarkIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
+import { ReactComponent as LogoWithText } from "../spendbook-logo-with-text.svg";
 
-const navigation = [{ name: 'Transactions', href: '/transactions', current: true }];
-const userNavigation = [{ name: 'Sign out', href: '/logout' }];
+const navigation = [
+  { name: "Transactions", href: "/transactions", current: true },
+];
+const userNavigation = [{ name: "Sign out", href: "/logout" }];
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 interface ExampleProps {
@@ -19,10 +24,17 @@ export default function Example(props: ExampleProps) {
   return (
     <>
       <div className="min-h-full">
-        <Disclosure id={'header-nav'} as="nav" className="border-b border-gray-200 bg-white">
+        <Disclosure
+          id={"header-nav"}
+          as="nav"
+          className="border-b border-gray-200 bg-white"
+        >
           {({ open }) => (
             <>
-              <div id={'header-inner-content'} className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+              <div
+                id={"header-inner-content"}
+                className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8"
+              >
                 <div className="flex h-16 justify-between">
                   <div className="flex">
                     <div className="flex flex-shrink-0 items-center">
@@ -35,11 +47,11 @@ export default function Example(props: ExampleProps) {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? 'border-primary-500 text-gray-900'
-                              : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                            'inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm'
+                              ? "border-primary-500 text-gray-900"
+                              : "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700",
+                            "inline-flex items-center border-b-2 px-1 pt-1 font-medium text-sm"
                           )}
-                          aria-current={item.current ? 'page' : undefined}
+                          aria-current={item.current ? "page" : undefined}
                         >
                           {item.name}
                         </a>
@@ -72,8 +84,8 @@ export default function Example(props: ExampleProps) {
                                 <a
                                   href={item.href}
                                   className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-gray-700 text-sm'
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-gray-700 text-sm"
                                   )}
                                 >
                                   {item.name}
@@ -90,9 +102,15 @@ export default function Example(props: ExampleProps) {
                     <Disclosure.Button className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                       <span className="sr-only">Open main menu</span>
                       {open ? (
-                        <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
+                        <XMarkIcon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
                       ) : (
-                        <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
+                        <Bars3Icon
+                          className="block h-6 w-6"
+                          aria-hidden="true"
+                        />
                       )}
                     </Disclosure.Button>
                   </div>
@@ -108,11 +126,11 @@ export default function Example(props: ExampleProps) {
                       href={item.href}
                       className={classNames(
                         item.current
-                          ? 'border-primary-500 bg-primary-50 text-primary-700'
-                          : 'border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800',
-                        'block border-l-4 py-2 pl-3 pr-4 font-medium text-base'
+                          ? "border-primary-500 bg-primary-50 text-primary-700"
+                          : "border-transparent text-gray-600 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800",
+                        "block border-l-4 py-2 pl-3 pr-4 font-medium text-base"
                       )}
-                      aria-current={item.current ? 'page' : undefined}
+                      aria-current={item.current ? "page" : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>
