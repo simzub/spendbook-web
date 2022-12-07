@@ -23,7 +23,13 @@ export default function Login() {
               Enter you account details to continue
             </p>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+          <form
+            className="mt-8 space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="flex flex-col gap-8">
               <div>
