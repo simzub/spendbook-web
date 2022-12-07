@@ -1,16 +1,33 @@
-// import Login from './components/Login';
-import Header from './components/Header';
-import Main from './components/Main';
+import Login from './components/Login';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import RequireAuth from './components/RequireAuth';
+import InnerSwitch from './components/InnerSwitch';
+import { Provider } from 'react-redux';
+import { store } from './app/store';
 
-import TransactionsTable from './components/TransactionsTable';
+const router = createBrowserRouter([
+  {
+    path: '/login',
+    element: (
+      <RequireAuth type={'public'}>
+        <Login />
+      </RequireAuth>
+    ),
+  },
+  {
+    path: '*',
+    element: (
+      <RequireAuth type={'private'}>
+        <InnerSwitch />
+      </RequireAuth>
+    ),
+  },
+]);
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <Header />
-      <Main />
-    </div>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   );
 }
-
-export default App;
