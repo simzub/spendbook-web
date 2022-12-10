@@ -6,7 +6,7 @@ interface TransactionsTableProps {
   data: TransactionItem[];
 }
 
-export default function TransactionsTable(props: TransactionsTableProps) {
+export default function TransactionsList(props: TransactionsTableProps) {
   return (
     <div className="flex w-full flex-col gap-4 ">
       <div className="flex flex-row items-center justify-between py-2.5 px-0 ">

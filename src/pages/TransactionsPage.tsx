@@ -1,13 +1,13 @@
-import ContentCard from "./ContentCard";
-import ColoredSpan from "./ColoredSpan";
-import TransactionsTable from "./TransactionsTable";
-import PageHeader from "./PageHeader";
-import SectionHeader from "./SectionHeader";
+import ContentCard from "../components/ContentCard";
+import ColoredSpan from "../components/ColoredSpan";
+import TransactionsList from "../components/TransactionsList";
+import PageHeader from "../components/PageHeader";
+import SectionHeader from "../components/SectionHeader";
 import euroFormatter from "../utils/euroFormatter";
 import { useAppSelector } from "../app/hook";
 import { selectTransactions } from "../features/transactions/transactionListSlice";
 
-export default function Main() {
+export default function TransactionsPage() {
   const data = useAppSelector(selectTransactions);
   return (
     <>
@@ -30,7 +30,7 @@ export default function Main() {
               </div>
             </div>
           </div>
-          <TransactionsTable data={data} />
+          <TransactionsList data={data} />
         </div>
       </div>
     </>
