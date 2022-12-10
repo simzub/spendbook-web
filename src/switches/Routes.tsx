@@ -1,6 +1,6 @@
 import { Navigate, RouteObject } from "react-router-dom";
 import LogoutPage from "../pages/LogoutPage";
-import TransactionsPage from "../pages/TransactionsPage";
+import Main from "../pages/TransactionsPage";
 import NewTransactionPage from "../pages/NewTransactionPage";
 
 const routes: RouteObject[] = [
@@ -13,7 +13,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "",
-        element: <TransactionsPage />,
+        element: <Main />,
         index: true,
       },
       {
