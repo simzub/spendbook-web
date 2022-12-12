@@ -1,7 +1,7 @@
 import { Navigate, RouteObject } from "react-router-dom";
 import LogoutPage from "../pages/LogoutPage";
-import Main from "../pages/TransactionsPage";
-import NewTransactionPage from "../pages/NewTransactionPage";
+import Main from "../pages/transactions/TransactionsPage";
+import NewTransactionPage from "../pages/transactions/NewTransactionPage";
 
 const routes: RouteObject[] = [
   {

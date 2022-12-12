@@ -22,7 +22,7 @@ build:
   dependencies:
     - setup
   script:
-    - npm run build
+    - CI=false npm run build
 
 eslint-check:
   stage: pre-checks

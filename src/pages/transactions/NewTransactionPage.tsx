@@ -1,8 +1,8 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Link, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useAppSelector } from "../app/hook";
-import { selectPayers } from "../features/payer/payerListSlice";
+import { useAppSelector } from "../../app/hook";
+import { selectPayers } from "../../features/payer/payerListSlice";
 
 type Inputs = {
   date: string;
