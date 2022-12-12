@@ -1,20 +1,22 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { ReactComponent as LogoWithText } from "../../spendbook-logo-with-text.svg";
 import { login } from "./login.slice";
 import { useAppDispatch } from "../../app/hook";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 export default function Login() {
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const onSubmit = () => {
-    dispatch(login({ email, password }));
-  };
+  const { register, handleSubmit } = useForm<LoginFormData>();
+  const onSubmit = (data: LoginFormData) => dispatch(login(data));
 
   return (
     <>
@@ -26,13 +28,7 @@ export default function Login() {
               Enter you account details to continue
             </p>
           </div>
-          <form
-            className="mt-8 space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              onSubmit();
-            }}
-          >
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="flex flex-col gap-8">
               <div>
@@ -41,11 +37,9 @@ export default function Login() {
                 </label>
                 <input
                   id="email"
-                  name="email"
                   type="email"
                   autoComplete="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  {...register("email", { required: true })}
                   required
                   className=" w-full appearance-none rounded-lg border  border-primary-900 px-3 py-2 text-gray-900 placeholder-secondary focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500  sm:text-sm"
                   placeholder="Email"
@@ -58,11 +52,9 @@ export default function Login() {
                 <div className="relative mt-1 rounded-md shadow-sm">
                   <input
                     id="password"
-                    name="password"
                     type={passwordVisible ? "text" : "password"}
                     autoComplete="current-password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    {...register("password", { required: true })}
                     required
                     className="w-full appearance-none rounded-lg border border-primary-900 px-3 py-2 text-gray-900 placeholder-secondary focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                     placeholder="Password"
