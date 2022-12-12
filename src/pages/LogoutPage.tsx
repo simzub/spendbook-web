@@ -1,9 +1,15 @@
 import { useEffect } from "react";
+import { useAppDispatch } from "../app/hook";
+import { logoutUser } from "../redux/user.slice";
 
-export default function LogoutPage() {
+function LogoutPage() {
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    localStorage.removeItem("isAuthenticated");
-    window.location.reload();
+    dispatch(logoutUser());
   });
-  return <div />;
+
+  return <></>;
 }
+
+export default LogoutPage;

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { TransactionItem } from "../features/transactions/transactionListSlice";
+import { TransactionResponse } from "../services/spendbook/transaction.requests";
 import euroFormatter from "../utils/euroFormatter";
 
 interface TransactionsTableProps {
-  data: TransactionItem[];
+  data: TransactionResponse[];
 }
 
 export default function TransactionsList(props: TransactionsTableProps) {
@@ -58,16 +58,16 @@ export default function TransactionsList(props: TransactionsTableProps) {
                     {props.data.map((data) => (
                       <tr key={Math.random()}>
                         <td className="font-base whitespace-nowrap py-4 pl-4 pr-3 text-base md:pl-6 ">
-                          {data.date}
+                          {new Date(data.timestamp).toLocaleDateString()}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-base">
                           {data.location}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-base">
-                          {data.payer}
+                          {data.payer.firstName}
                         </td>
                         <td className="whitespace-nowrap py-4 px-3 text-base">
-                          {euroFormatter(data.amount)}
+                          {euroFormatter(Number(data.amount))}
                         </td>
                       </tr>
                     ))}

@@ -1,5 +1,7 @@
 import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import { useAppSelector } from "../app/hook";
+import { selectIsAuthenticated } from "../redux/user.slice";
 
 type RouteType = "public" | "private";
 
@@ -9,7 +11,7 @@ interface RequireAuthProps {
 }
 
 const RequireAuth: FC<RequireAuthProps> = (props) => {
-  const isAuthenticated = Boolean(localStorage.getItem("isAuthenticated"));
+  const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   if (isAuthenticated && props.type === "public") {
     // logged in so redirect to index page

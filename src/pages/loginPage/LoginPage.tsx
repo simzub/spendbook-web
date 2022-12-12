@@ -1,16 +1,19 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { ReactComponent as LogoWithText } from "../spendbook-logo-with-text.svg";
+import { ReactComponent as LogoWithText } from "../../spendbook-logo-with-text.svg";
+import { login } from "./login.slice";
+import { useAppDispatch } from "../../app/hook";
 
 export default function Login() {
+  const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
-  const navigate = useNavigate();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const onSubmit = () => {
-    localStorage.setItem("isAuthenticated", "yes");
-    navigate("");
+    dispatch(login({ email, password }));
   };
 
   return (
@@ -23,7 +26,13 @@ export default function Login() {
               Enter you account details to continue
             </p>
           </div>
-          <form className="mt-8 space-y-6" onSubmit={onSubmit}>
+          <form
+            className="mt-8 space-y-6"
+            onSubmit={(e) => {
+              e.preventDefault();
+              onSubmit();
+            }}
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="flex flex-col gap-8">
               <div>
@@ -35,6 +44,8 @@ export default function Login() {
                   name="email"
                   type="email"
                   autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className=" w-full appearance-none rounded-lg border  border-primary-900 px-3 py-2 text-gray-900 placeholder-secondary focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500  sm:text-sm"
                   placeholder="Email"
@@ -50,6 +61,8 @@ export default function Login() {
                     name="password"
                     type={passwordVisible ? "text" : "password"}
                     autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required
                     className="w-full appearance-none rounded-lg border border-primary-900 px-3 py-2 text-gray-900 placeholder-secondary focus:z-10 focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                     placeholder="Password"
