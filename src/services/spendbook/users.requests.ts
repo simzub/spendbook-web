@@ -1,3 +1,4 @@
+import { ItemQueryResponse, UserResponse } from "./transaction.requests";
 import SpendbookClient from "./SpendbookClient";
 
 export interface TokenUserResponse {
@@ -12,6 +13,10 @@ export interface TokenUserResponse {
 
 const getTokenUser = () => SpendbookClient.get<TokenUserResponse>("/users/me");
 
+const getPayers = () =>
+  SpendbookClient.get<ItemQueryResponse<UserResponse>>("/users");
+
 export default {
   getTokenUser,
+  getPayers,
 };

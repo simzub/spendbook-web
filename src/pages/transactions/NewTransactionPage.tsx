@@ -1,30 +1,34 @@
+import { useEffect } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { Link, useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useAppSelector } from "../../app/hook";
-import { selectPayers } from "../../features/payer/payerListSlice";
-
-type Inputs = {
-  date: string;
-  payer: string;
-  location: string;
-  amount: string;
-};
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import {
+  CreateTransactionData,
+  UserResponse,
+} from "../../services/spendbook/transaction.requests";
+import { createTransaction, fetchPayers } from "./transactionsCreateSlice";
 
 export default function NewTransactionPage() {
+  const dispatch = useAppDispatch();
   const { transactionId } = useParams();
-  const payers = useAppSelector(selectPayers);
+
+  useEffect(() => {
+    dispatch(fetchPayers());
+  }, [dispatch]);
+
+  const payers = useAppSelector((state) => state.transactionsCreate.payers);
 
   // React-Hook-Form
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<CreateTransactionData>();
   // eslint-disable-next-line no-console
-  const onSubmit: SubmitHandler<Inputs> = (data: any) => console.log(data);
-
-  const toDay = new Date().toISOString().substring(0, 10);
+  const onSubmit: SubmitHandler<CreateTransactionData> = (
+    data: CreateTransactionData
+  ) => dispatch(createTransaction(data));
 
   let headerTitle = "";
   if (!transactionId) {
@@ -58,14 +62,13 @@ export default function NewTransactionPage() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register("date", { required: true })}
-                    type="date"
+                    {...register("timestamp", { required: true })}
+                    type="datetime-local"
                     id="date"
-                    name="date"
-                    defaultValue={toDay}
+                    defaultValue={new Date().toISOString()}
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
                   />
-                  {errors.date && "Date is required"}
+                  {errors.timestamp && "Date is required"}
                 </div>
               </div>
               <div className="mt-6">
@@ -74,7 +77,10 @@ export default function NewTransactionPage() {
                 </label>
                 <div className="mt-1">
                   <select
-                    {...register("payer", { required: true })}
+                    {...register("payer", {
+                      required: true,
+                      valueAsNumber: true,
+                    })}
                     id="payer"
                     name="payer"
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
@@ -82,8 +88,10 @@ export default function NewTransactionPage() {
                     <option hidden selected>
                       Select payer...
                     </option>
-                    {payers.map((payer) => (
-                      <option key={payer.id}>{payer.name}</option>
+                    {payers.map((payer: UserResponse) => (
+                      <option key={payer.id} value={payer.id}>
+                        {payer.firstName}
+                      </option>
                     ))}
                   </select>
                   {errors.payer && "Payer is required"}
@@ -113,7 +121,10 @@ export default function NewTransactionPage() {
                 </label>
                 <div className="mt-1">
                   <input
-                    {...register("amount", { required: true })}
+                    {...register("amount", {
+                      required: true,
+                      valueAsNumber: true,
+                    })}
                     placeholder="Amount"
                     type="number"
                     id="amount"

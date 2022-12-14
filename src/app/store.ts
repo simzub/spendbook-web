@@ -5,17 +5,16 @@ import {
   Reducer,
 } from "@reduxjs/toolkit";
 
-import payerListReducer from "../features/payer/payerListSlice";
 import loginSliceReducer from "../pages/loginPage/login.slice";
+import transactionsCreateSliceReducer from "../pages/transactions/transactionsCreateSlice";
 import transactionsListSliceReducer from "../pages/transactions/transactionsListSlice";
 import userSliceReducer from "../redux/user.slice";
 
 const combinedReducer = combineReducers({
   login: loginSliceReducer,
   users: userSliceReducer,
-  // transactionList: transactionListReducer,
-  payerList: payerListReducer,
   transactionsList: transactionsListSliceReducer,
+  transactionsCreate: transactionsCreateSliceReducer,
 });
 
 export type RootState = ReturnType<typeof combinedReducer>;
