@@ -24,11 +24,12 @@ export default function TransactionsPage() {
   const transactions = useAppSelector(
     (state) => state.transactionsList.transcations?.items || []
   );
+  const userName = useAppSelector((state) => state.users.user?.firstName);
 
   // const data = useAppSelector(selectTransactions);
   return (
     <>
-      <PageHeader title={"Hello, User Name!"} />
+      <PageHeader title={`Hello, ${userName}!`} />
       <div className="flex w-full justify-center ">
         <div className="flex w-full flex-col items-center justify-center md:w-[48rem]">
           <div className=" flex w-full flex-col items-center justify-center gap-8 px-0 pb-8 pt-6 ">

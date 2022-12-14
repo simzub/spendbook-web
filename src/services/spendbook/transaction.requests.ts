@@ -42,13 +42,25 @@ export interface TransactionResponse {
   updatedAt: string;
 }
 
+export interface CreateTransactionData {
+  timestamp: string; // format is ISO8601 (e.g. '2022-12-13T08:23:55.829Z')
+  location: string;
+  amount: number;
+  payer: number;
+  notes?: string;
+}
+
 const getTransactionOverview = () =>
   SpendbookClient.get<GetOverviewResponse>("/transactions/overview");
 
 const getTransactions = () =>
   SpendbookClient.get<ItemQueryResponse<TransactionResponse>>("/transactions");
 
+const postTransaction = (data: CreateTransactionData) =>
+  SpendbookClient.post<TransactionResponse>("/transactions", data);
+
 export default {
   getTransactionOverview,
   getTransactions,
+  postTransaction,
 };
