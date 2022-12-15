@@ -13,7 +13,7 @@ export default function TransactionsPage() {
 
   useEffect(() => {
     dispatch(fetchTransactionData());
-  }, [dispatch]);
+  }, []);
 
   const totalTransactions = useAppSelector(
     (state) => state.transactionsList.overview?.transactionCount
@@ -24,9 +24,12 @@ export default function TransactionsPage() {
   const transactions = useAppSelector(
     (state) => state.transactionsList.transcations?.items || []
   );
+  const sortedTransactions = [...transactions].sort(
+    (x, y) => +new Date(y.timestamp) - +new Date(x.timestamp)
+  );
+
   const userName = useAppSelector((state) => state.users.user?.firstName);
 
-  // const data = useAppSelector(selectTransactions);
   return (
     <>
       <PageHeader title={`Hello, ${userName}!`} />
@@ -57,7 +60,7 @@ export default function TransactionsPage() {
               </div>
             </div>
           </div>
-          <TransactionsList data={transactions} />
+          <TransactionsList data={sortedTransactions} />
         </div>
       </div>
     </>
