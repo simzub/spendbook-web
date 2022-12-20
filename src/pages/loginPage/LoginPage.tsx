@@ -2,8 +2,9 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ReactComponent as LogoWithText } from "../../spendbook-logo-with-text.svg";
-import { login } from "./login.slice";
-import { useAppDispatch } from "../../app/hook";
+import { login, loginSliceSelectors } from "./login.slice";
+import { useAppDispatch, useAppSelector } from "../../app/hook";
+import Loading from "../../components/Loading";
 
 interface LoginFormData {
   email: string;
@@ -14,6 +15,8 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisible = () => setPasswordVisible(!passwordVisible);
+
+  const loading = useAppSelector(loginSliceSelectors.isLoading);
 
   const { register, handleSubmit } = useForm<LoginFormData>();
   const onSubmit = (data: LoginFormData) => dispatch(login(data));
@@ -77,7 +80,7 @@ export default function Login() {
                 type="submit"
                 className="relative flex w-full justify-center rounded-lg border border-primary-900 bg-primary-900 bg-opacity-20 py-2 px-4 font-bold  text-primary-900 text-base"
               >
-                SIGN IN
+                {loading ? <Loading /> : "SIGN IN"}
               </button>
             </div>
           </form>

@@ -8,6 +8,7 @@ import {
   UserResponse,
 } from "../../services/spendbook/transaction.requests";
 import { createTransaction, fetchPayers } from "./transactionsCreateSlice";
+import Loading from "../../components/Loading";
 
 export default function NewTransactionPage() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ export default function NewTransactionPage() {
   }, [dispatch]);
 
   const payers = useAppSelector((state) => state.transactionsCreate.payers);
+  const loading = useAppSelector((state) => state.transactionsCreate.isLoading);
 
   // React-Hook-Form
   const {
@@ -66,6 +68,7 @@ export default function NewTransactionPage() {
                     type="datetime-local"
                     id="date"
                     defaultValue={new Date().toISOString()}
+                    max="2050-06-30T16:30"
                     className="block w-full rounded-md border-gray-300 font-normal shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-base"
                   />
                   {errors.timestamp && "Date is required"}
@@ -144,7 +147,7 @@ export default function NewTransactionPage() {
                 type="submit"
                 className="relative flex w-full justify-center rounded-lg bg-primary-900 bg-opacity-20 py-2 px-4 font-bold  text-primary-900 text-base"
               >
-                Save
+                {loading ? <Loading /> : "Save"}
               </button>
               <Link
                 to={".."}
