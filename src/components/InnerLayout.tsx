@@ -159,7 +159,7 @@ export default function Example(props: ExampleProps) {
           <main>
             <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
               {/* Replace with your content */}
-              <div className="px-4 py-8 sm:px-0">{props.children}</div>
+              <div className="px-4 sm:px-0">{props.children}</div>
               {/* /End replace */}
             </div>
           </main>

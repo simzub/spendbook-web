@@ -59,8 +59,12 @@ const getTransactions = () =>
 const postTransaction = (data: CreateTransactionData) =>
   SpendbookClient.post<TransactionResponse>("/transactions", data);
 
+const getTransaction = (id: string) =>
+  SpendbookClient.get<TransactionResponse>(`/transactions/${id}`);
+
 export default {
   getTransactionOverview,
   getTransactions,
   postTransaction,
+  getTransaction,
 };
