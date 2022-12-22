@@ -36,6 +36,12 @@ export const fetchTransactionDetail =
     }
   };
 
+export const deleteTransaction =
+  (id: string): ReduxAction =>
+  async () => {
+    await spendbookFetch.transactions.deleteTransaction(id);
+  };
+
 const transactionDetailSliceReducer = transactionDetailSlice.reducer;
 
 export default transactionDetailSliceReducer;
