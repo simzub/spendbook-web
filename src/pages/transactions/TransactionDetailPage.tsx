@@ -4,7 +4,10 @@ import { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import euroFormatter from "../../utils/euroFormatter";
-import { fetchTransactionDetail } from "./transactionDetailSlice";
+import {
+  deleteTransaction,
+  fetchTransactionDetail,
+} from "./transactionDetailSlice";
 
 // import ErrorModal from "../../components/ErrorModal";
 
@@ -14,10 +17,12 @@ export default function TransactionDetailPage() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  let idForDelete: string;
   // Reikia safe kad grazintu atgal jei neegzistuoja id
   useEffect(() => {
     if (transactionId) {
       dispatch(fetchTransactionDetail(transactionId));
+      idForDelete = transactionId;
     } else {
       navigate("..");
     }
@@ -51,6 +56,10 @@ export default function TransactionDetailPage() {
   }
   const formattedAmount = euroFormatter(Number(transactionAmount));
 
+  function transactionDeleteHandler(id: string) {
+    dispatch(deleteTransaction(id));
+  }
+
   return (
     <div className="flex flex-col gap-8">
       {/* <ErrorModal /> */}
@@ -64,9 +73,14 @@ export default function TransactionDetailPage() {
         <button className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-primary-900 bg-opacity-20 py-2 px-6 font-bold text-primary-900 text-base">
           Edit
         </button>
-        <button className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-red-600 bg-opacity-20 py-2 px-6 font-bold text-red-600 text-base">
-          Delete
-        </button>
+        <div onClick={() => transactionDeleteHandler(idForDelete)}>
+          <Link
+            to=".."
+            className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-red-600 bg-opacity-20 py-2 px-6 font-bold text-red-600 text-base"
+          >
+            Delete
+          </Link>
+        </div>
       </div>
       <div className="overflow-hidden rounded-2xl  border border-y border-primary-900 bg-white">
         <div className="m-8">

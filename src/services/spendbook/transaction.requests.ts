@@ -49,6 +49,9 @@ export interface CreateTransactionData {
   payer: number;
   notes?: string;
 }
+export interface DeteleTransaction {
+  id: string;
+}
 
 const getTransactionOverview = () =>
   SpendbookClient.get<GetOverviewResponse>("/transactions/overview");
@@ -62,9 +65,13 @@ const postTransaction = (data: CreateTransactionData) =>
 const getTransaction = (id: string) =>
   SpendbookClient.get<TransactionResponse>(`/transactions/${id}`);
 
+const deleteTransaction = (id: string) =>
+  SpendbookClient.delete<DeteleTransaction>(`/transactions/${id}`);
+
 export default {
   getTransactionOverview,
   getTransactions,
   postTransaction,
   getTransaction,
+  deleteTransaction,
 };
