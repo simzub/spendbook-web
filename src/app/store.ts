@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import loginSliceReducer from "../pages/loginPage/login.slice";
+import transactionDetailSliceReducer from "../pages/transactions/transactionDetailSlice";
 import transactionsCreateSliceReducer from "../pages/transactions/transactionsCreateSlice";
 import transactionsListSliceReducer from "../pages/transactions/transactionsListSlice";
 import userSliceReducer from "../redux/user.slice";
@@ -15,6 +16,7 @@ const combinedReducer = combineReducers({
   users: userSliceReducer,
   transactionsList: transactionsListSliceReducer,
   transactionsCreate: transactionsCreateSliceReducer,
+  transactionDetail: transactionDetailSliceReducer,
 });
 
 export type RootState = ReturnType<typeof combinedReducer>;

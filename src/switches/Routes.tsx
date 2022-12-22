@@ -1,7 +1,8 @@
 import { Navigate, RouteObject } from "react-router-dom";
 import LogoutPage from "../pages/LogoutPage";
-import Main from "../pages/transactions/TransactionsPage";
+import TransactionPage from "../pages/transactions/TransactionsPage";
 import NewTransactionPage from "../pages/transactions/NewTransactionPage";
+import TransactionDetailPage from "../pages/transactions/TransactionDetailPage";
 
 const routes: RouteObject[] = [
   {
@@ -13,12 +14,16 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "",
-        element: <Main />,
+        element: <TransactionPage />,
         index: true,
       },
       {
         path: "new",
         element: <NewTransactionPage />,
+      },
+      {
+        path: ":transactionId",
+        element: <TransactionDetailPage />,
       },
     ],
   },
