@@ -1,32 +1,26 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hook";
 import euroFormatter from "../../utils/euroFormatter";
-import {
-  deleteTransaction,
-  fetchTransactionDetail,
-} from "./transactionDetailSlice";
+import { fetchTransactionDetail } from "./transactionDetailSlice";
 
-// import ErrorModal from "../../components/ErrorModal";
+import ErrorModal from "../../components/ErrorModal";
 
 export default function TransactionDetailPage() {
+  const [openModal, setOpenModal] = useState(false);
   const params = useParams();
   const { transactionId } = params;
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  let idForDelete: string;
   // Reikia safe kad grazintu atgal jei neegzistuoja id
   useEffect(() => {
     if (transactionId) {
       dispatch(fetchTransactionDetail(transactionId));
-      idForDelete = transactionId;
-    } else {
-      navigate("..");
     }
-  }, [transactionId]);
+  }, []);
 
   const transactionDate = useAppSelector(
     (state) => state.transactionDetail.transcation?.timestamp
@@ -56,13 +50,15 @@ export default function TransactionDetailPage() {
   }
   const formattedAmount = euroFormatter(Number(transactionAmount));
 
-  function transactionDeleteHandler(id: string) {
-    dispatch(deleteTransaction(id));
-  }
-
   return (
     <div className="flex flex-col gap-8">
-      {/* <ErrorModal /> */}
+      {openModal && (
+        <ErrorModal
+          transactionId={transactionId}
+          open={openModal}
+          setOpen={setOpenModal}
+        />
+      )}
       <div className="flex items-center gap-4">
         <Link to="..">
           <ArrowLeftIcon className="h-8" />
@@ -70,16 +66,17 @@ export default function TransactionDetailPage() {
         <h1 className="flex w-full items-stretch font-bold text-3xl ">
           {`${formattedAmount} on ${formattedDate}`}
         </h1>
-        <button className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-primary-900 bg-opacity-20 py-2 px-6 font-bold text-primary-900 text-base">
+        <Link
+          to={`./edit`}
+          className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-primary-900 bg-opacity-20 py-2 px-6 font-bold text-primary-900 text-base"
+        >
           Edit
-        </button>
-        <div onClick={() => transactionDeleteHandler(idForDelete)}>
-          <Link
-            to=".."
-            className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-red-600 bg-opacity-20 py-2 px-6 font-bold text-red-600 text-base"
-          >
+        </Link>
+
+        <div onClick={() => setOpenModal(true)}>
+          <button className="flex w-auto flex-row items-center justify-center whitespace-nowrap rounded-lg  bg-red-600 bg-opacity-20 py-2 px-6 font-bold text-red-600 text-base">
             Delete
-          </Link>
+          </button>
         </div>
       </div>
       <div className="overflow-hidden rounded-2xl  border border-y border-primary-900 bg-white">

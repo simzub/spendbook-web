@@ -68,10 +68,18 @@ const getTransaction = (id: string) =>
 const deleteTransaction = (id: string) =>
   SpendbookClient.delete<DeteleTransaction>(`/transactions/${id}`);
 
+const editTransaction = (data: CreateTransactionData, id: string) =>
+  SpendbookClient.post<TransactionResponse>(`/transactions/${id}`, data);
+
+const patchTransaction = (data: CreateTransactionData, id: string) =>
+  SpendbookClient.patch<TransactionResponse>(`/transactions/${id}`, data);
+
 export default {
   getTransactionOverview,
   getTransactions,
   postTransaction,
   getTransaction,
   deleteTransaction,
+  editTransaction,
+  patchTransaction,
 };

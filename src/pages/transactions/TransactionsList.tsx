@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { TransactionResponse } from "../services/spendbook/transaction.requests";
-import euroFormatter from "../utils/euroFormatter";
+import { TransactionResponse } from "../../services/spendbook/transaction.requests";
+import euroFormatter from "../../utils/euroFormatter";
 
 interface TransactionsTableProps {
   data: TransactionResponse[];

@@ -1,16 +1,37 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { Link } from "react-router-dom";
 import {
   ExclamationTriangleIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { useAppDispatch } from "../app/hook";
+import { deleteTransaction } from "../pages/transactions/transactionDetailSlice";
 
-export default function ErrorModal() {
-  const [open, setOpen] = useState(true);
+interface ErrorModalProps {
+  transactionId: string | undefined;
+  open: any;
+  setOpen: any;
+}
+
+export default function ErrorModal(props: ErrorModalProps) {
+  // const [open, setOpen] = useState(true);
+  const dispatch = useAppDispatch();
+
+  let idForDelete: string;
+  if (props.transactionId) {
+    idForDelete = props.transactionId;
+  }
+
+  function transactionDeleteHandler(id: string) {
+    dispatch(deleteTransaction(id));
+  }
+
+  const handleModalClose = () => props.setOpen(false);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={props.open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={props.setOpen}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -39,7 +60,7 @@ export default function ErrorModal() {
                   <button
                     type="button"
                     className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-                    onClick={() => setOpen(false)}
+                    onClick={() => handleModalClose()}
                   >
                     <span className="sr-only">Close</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
@@ -72,14 +93,14 @@ export default function ErrorModal() {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 font-medium text-white shadow-sm text-base hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => transactionDeleteHandler(idForDelete)}
                   >
-                    Delete
+                    <Link to="..">Delete</Link>
                   </button>
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 shadow-sm text-base hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:mt-0 sm:w-auto sm:text-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => handleModalClose()}
                   >
                     Cancel
                   </button>
