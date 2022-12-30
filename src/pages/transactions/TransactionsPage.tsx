@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import ContentCard from "../../components/ContentCard";
 import ColoredSpan from "../../components/ColoredSpan";
-import TransactionsList from "../../components/TransactionsList";
+import TransactionsList from "./TransactionsList";
 import PageHeader from "../../components/PageHeader";
 import SectionHeader from "../../components/SectionHeader";
 import euroFormatter from "../../utils/euroFormatter";

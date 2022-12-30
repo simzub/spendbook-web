@@ -25,6 +25,10 @@ const routes: RouteObject[] = [
         path: ":transactionId",
         element: <TransactionDetailPage />,
       },
+      {
+        path: ":transactionId/edit",
+        element: <NewTransactionPage />,
+      },
     ],
   },
   {

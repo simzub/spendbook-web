@@ -8,7 +8,9 @@ import {
   UserResponse,
 } from "../../services/spendbook/transaction.requests";
 import { createTransaction, fetchPayers } from "./transactionsCreateSlice";
-import Loading from "../../components/Loading";
+
+import { fetchTransactionDetail } from "./transactionDetailSlice";
+import { patchTransaction } from "./transactionEditSlice";
 
 export default function NewTransactionPage() {
   const dispatch = useAppDispatch();
@@ -16,21 +18,54 @@ export default function NewTransactionPage() {
 
   useEffect(() => {
     dispatch(fetchPayers());
-  }, [dispatch]);
+    if (transactionId) {
+      dispatch(fetchTransactionDetail(transactionId));
+    }
+  }, []);
 
   const payers = useAppSelector((state) => state.transactionsCreate.payers);
-  const loading = useAppSelector((state) => state.transactionsCreate.isLoading);
 
   // React-Hook-Form
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<CreateTransactionData>();
   // eslint-disable-next-line no-console
-  const onSubmit: SubmitHandler<CreateTransactionData> = (
-    data: CreateTransactionData
-  ) => dispatch(createTransaction(data));
+  let onSubmit: SubmitHandler<CreateTransactionData>;
+
+  if (transactionId) {
+    onSubmit = (data: CreateTransactionData) =>
+      dispatch(patchTransaction(data, transactionId));
+
+    const transactionAmount = useAppSelector(
+      (state) => state.transactionDetail.transcation?.amount
+    );
+    let amount;
+    if (transactionAmount) {
+      amount = +transactionAmount;
+    } else {
+      amount = 0;
+    }
+    setValue("amount", amount);
+
+    const transactionLocation = useAppSelector(
+      (state) => state.transactionDetail.transcation?.location
+    );
+    const location = transactionLocation ?? "";
+    setValue("location", location);
+
+    // meta error nes nera pradzioj sufetchine payers array
+    // const transactionPayer = useAppSelector(
+    //   (state) => state.transactionDetail.transcation?.payer.firstName
+    // );
+    // const payer = payers.filter((x) => x.firstName === transactionPayer)[0].id;
+    // setValue("payer", payer);
+  } else {
+    onSubmit = (data: CreateTransactionData) =>
+      dispatch(createTransaction(data));
+  }
 
   let headerTitle = "";
   if (!transactionId) {
@@ -143,12 +178,13 @@ export default function NewTransactionPage() {
             </section>
 
             <div className="mt-10 flex w-auto flex-col gap-4 sm:flex sm:items-center sm:justify-between">
-              <button
+              <Link
+                to={".."}
                 type="submit"
                 className="relative flex w-full justify-center rounded-lg bg-primary-900 bg-opacity-20 py-2 px-4 font-bold  text-primary-900 text-base"
               >
-                {loading ? <Loading /> : "Save"}
-              </button>
+                Save
+              </Link>
               <Link
                 to={".."}
                 className="relative flex w-full justify-center rounded-lg bg-secondary bg-opacity-20 py-2 px-4 font-bold text-base"

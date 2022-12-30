@@ -10,7 +10,6 @@ function RootSwitch() {
   const dispatch = useAppDispatch();
 
   const isChecked = useAppSelector(selectIsChecked);
-  console.log(isChecked);
 
   useEffect(() => {
     if (!isChecked) {
